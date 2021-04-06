@@ -1,0 +1,24 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <button id="add" href="/criteria/form" class="modal-open btn btn-primary btn-round" type="submit" data-placement="bottom"
+            title="Tambah Data">
+            Tambah Data
+        </button>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered" id="dataTable" url="/criteria/table" width="100%" cellspacing="0"></table>
+
+        <% const toastSuccess =  messages.success  %>
+        <% const toastError =  messages.error  %>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const toastSuccess = "<%= toastSuccess %>"
+        const toastError = "<%= toastError %>"
+        toastSuccess != "" && notification("success", toastSuccess)
+        toastError != "" && notification("error", toastError)
+    });
+</script>
+<%- include('../_modal.ejs') %>
