@@ -8,6 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        onUpdate: "cascade",
+        onDelete: "cascade",
+      },
       name: {
         type: Sequelize.STRING(30),
       },
@@ -23,15 +33,6 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
-    const createdAt = new Date();
-    const updatedAt = new Date();
-    const data = [
-      { name: "Fasilitas", bobot: 0.35, createdAt, updatedAt },
-      { name: "Harga Tanah", bobot: 0.25, createdAt, updatedAt },
-      { name: "SDM", bobot: 0.25, createdAt, updatedAt },
-      { name: "Geologi dan Iklim", bobot: 0.15, createdAt, updatedAt },
-    ];
-    await queryInterface.bulkInsert("criteria", data);
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("criteria");

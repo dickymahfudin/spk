@@ -8,8 +8,27 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        onUpdate: "cascade",
+        onDelete: "cascade",
+      },
       name: {
-        type: Sequelize.STRING(25),
+        type: Sequelize.STRING(30),
+      },
+      core: {
+        type: Sequelize.FLOAT,
+      },
+      secondary: {
+        type: Sequelize.FLOAT,
+      },
+      hasil: {
+        type: Sequelize.FLOAT,
       },
       createdAt: {
         allowNull: false,
@@ -20,12 +39,6 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
-
-    // const result = new Array(5).fill(null).map((data) => {
-    //   return { name: "A", createdAt: new Date(), updatedAt: new Date() };
-    // });
-
-    // await queryInterface.bulkInsert("list_locations", result);
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("list_locations");

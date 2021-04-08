@@ -17,6 +17,11 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
+      status: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -27,8 +32,18 @@ module.exports = {
       },
     });
 
-    const createdAt = new Date();
-    const updatedAt = new Date();
+    // const createdAt = new Date();
+    // const updatedAt = new Date();
+
+    // await queryInterface.bulkInsert("users", [
+    //   {
+    //     name: "dism",
+    //     username: "dism",
+    //     password: "123",
+    //     createdAt,
+    //     updatedAt,
+    //   },
+    // ]);
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("users");
