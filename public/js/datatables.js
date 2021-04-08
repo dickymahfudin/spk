@@ -28,9 +28,8 @@ $(document).ready(function () {
         processing: true,
         retrieve: true,
         responsive: true,
-        dom: "Bfrtip",
+        // dom: "Blrtip",
         data: response.data,
-        // columns: response.columns,
         columns: response.columns,
       });
     },

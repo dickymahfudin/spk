@@ -3,7 +3,7 @@ const index = (data, param = null) => {
   result.columns.push({ data: "no", title: "NO" });
   const key = param ? data[0][param] : data[0];
   Object.keys(key).forEach((el) => {
-    if (el != "id") {
+    if (el != "id" && el != "user_id") {
       result.columns.push({ data: el, title: el.toUpperCase() });
     }
   });
