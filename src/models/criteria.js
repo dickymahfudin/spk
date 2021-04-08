@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   criteria.init(
     {
+      user_id: DataTypes.INTEGER,
       name: DataTypes.STRING,
       bobot: DataTypes.FLOAT,
     },

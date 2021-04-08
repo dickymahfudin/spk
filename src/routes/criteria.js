@@ -11,11 +11,13 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/table", async (req, res, next) => {
+  const user_id = req.session.userId;
   const criterias = await criteria.findAll({
+    where: { user_id },
     order: [["id", "ASC"]],
     attributes: { exclude: ["createdAt", "updatedAt"] },
   });
-
+  // return res.json(criterias);
   return res.json(jsonToTable(criterias, "dataValues"));
 });
 
@@ -28,7 +30,7 @@ router.post("/", async (req, res, next) => {
     req.flash("error", "Nama Criteria Tidak Boleh Sama");
     return res.redirect("/criteria");
   }
-  const create = await criteria.create({ name, bobot });
+  const create = await criteria.create({ user_id, name, bobot });
   const tempLink = await link.getAll({ user_id });
   if (tempLink.length != 0) {
     const tempgroup = group(tempLink, "location_id");

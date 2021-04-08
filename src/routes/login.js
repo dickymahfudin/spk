@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const dataLaporan = require("../helpers/dataLaporan");
 const { user } = require("../models");
 
 const bcrypt = require("bcrypt");
@@ -23,7 +24,7 @@ router.post("/", async (req, res, next) => {
   req.session.login = true;
   req.session.userId = tempUser.id;
   req.session.username = tempUser.name;
-  res.redirect("/criteria");
+  res.redirect("/dashboard");
 });
 
 router.get("/register", (req, res, next) => {
@@ -31,7 +32,7 @@ router.get("/register", (req, res, next) => {
 });
 
 router.post("/register", async (req, res, next) => {
-  const { name, username } = req.body;
+  const { name, username, laporan } = req.body;
   const tempUser = await user.findOne({ where: { username } });
   if (tempUser) {
     req.flash(
@@ -41,7 +42,8 @@ router.post("/register", async (req, res, next) => {
     res.redirect("/login/register");
   }
   const password = await bcrypt.hash(req.body.password, 10);
-  await user.create({ name, username, password });
+  const create = await user.create({ name, username, password });
+  laporan && dataLaporan(create.id);
   req.flash("success", "Silahkan Masuk");
   res.redirect("/login");
 });
