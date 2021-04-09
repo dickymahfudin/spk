@@ -1,0 +1,89 @@
+<% if(location> 1 && criteria > 1) { %>
+    <a href="/hitung/hitung" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-calculator fa-sm text-white-50"></i> Hitung</a>
+    <% } else { %>
+        Untuk Mengaktifkan Tombol Hitung Harap Isi Data Terlebih Dahulu (Minimal 2)
+        <% } %>
+
+<% if(hasils) { %>
+<div>
+    $$x=\begin{bmatrix}<%=hitungs.matrix1%>\end{bmatrix}$$
+    <p>- Normalisasi matriks perbandingan kriteria asli \[r_{ij} = {x_{ij} \over \sqrt{\sum_{i=1}^n x_{ij^2}}}\]</p>
+    <div class="row">
+        <% hitungs.perhitungan.forEach((perhitungan,i) => { %>
+            <% perhitungan.matrix.forEach((matrix,j) => { %>
+                <div class="col">
+                    \[r_{<%=i+1%>.<%=j+1%>} = {_{<%=matrix%>} \over \sqrt{_{<%= perhitungan.matrixString%>^2}}}= {<%=matrix%> \over <%=perhitungan.sum%>} = <%=perhitungan.perhitungan1[j]%>\]
+                </div>
+            <% }) %>
+        <% }) %>
+    </div>
+    $$r_{ij}=\begin{bmatrix}<%=hitungs.matrix2%>\end{bmatrix}$$
+    <p>- Membangun matriks ternormalisasi terbobot</p>
+    $$y_{ij} = w_{i}r_{ij} $$
+    $$y_{ij}=\begin{bmatrix}<%=hitungs.matrix3%>\end{bmatrix}$$
+    <p>- Core Factor dan Secondary Factor</p>
+    \[NSF = {\sum NS \over \sum IS}.\]
+    <div class="row justify-content-center">
+        <div class="col col-md-6">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Lokasi</th>
+                        <th scope="col">Core Factor</th>
+                        <th scope="col">Secondary Factor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% hitungs.hasil.forEach((hasil,i) => { %>
+                    <tr>
+                        <th scope="row"><%= i+1%></th>
+                        <td><%= hasil.location%></td>
+                        <td><%= hasil.core%></td>
+                        <td><%= hasil.secondary%></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p>- penentuan ranking</p>
+    <% hitungs.hasil.sort((a, b) => a.hasil - b.hasil); %>
+    <div class="row justify-content-center">
+        <div class="col col-md-6">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Peringkat</th>
+                        <th scope="col">Lokasi</th>
+                        <th scope="col">Hasil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% hitungs.hasil.forEach((hasil,i)=> { %>
+                    <tr>
+                        <th scope="row"><%= i+1%></th>
+                        <td><%= hasil.location%></td>
+                        <td><%= hasil.hasil%></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<% } %>
+<% const toastSuccess=messages.success %>
+<% const toastError=messages.error %>
+
+<script>
+    $(document).ready(function () {
+        const toastSuccess = "<%= toastSuccess %>"
+        const toastError = "<%= toastError %>"
+        toastSuccess != "" && notification("success", toastSuccess)
+        toastError != "" && notification("error", toastError)
+    });
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
