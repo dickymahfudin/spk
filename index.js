@@ -10,6 +10,7 @@ const criteriaRouter = require("./src/routes/criteria");
 const dasboardRouter = require("./src/routes/dashboard");
 const lokasiRouter = require("./src/routes/location");
 const loginRouter = require("./src/routes/login");
+const hitungRouter = require("./src/routes/hitung");
 const PORT = process.env.PORT || 5000;
 const app = express();
 
@@ -34,6 +35,7 @@ app.set("layout", "./layouts/index");
 app.use("/dashboard", middleware, dasboardRouter);
 app.use("/lokasi", middleware, lokasiRouter);
 app.use("/criteria", middleware, criteriaRouter);
+app.use("/hitung", middleware, hitungRouter);
 app.use("/login", loginRouter);
 app.use("*", middleware, (req, res) => res.redirect("/dashboard"));
 
