@@ -8,10 +8,7 @@ const { list_location, criteria, link } = require("../models");
 router.get("/", async (req, res, next) => {
   const username = req.session.username;
   const user_id = req.session.userId;
-  const criterias = await criteria.findAll({
-    where: { user_id },
-    order: [["id", "ASC"]],
-  });
+  const criterias = await criteria.getAll(user_id);
   return res.render("lokasi/index", { title: "Lokasi", username, criterias });
 });
 
@@ -54,7 +51,9 @@ router.post("/", async (req, res, next) => {
 router.post("/:id", async (req, res, next) => {
   const data = req.body;
   const user_id = req.session.userId;
-  const location = await list_location.findOne({ where: { name: data.name } });
+  const location = await list_location.findOne({
+    where: { name: data.name, user_id },
+  });
   for (const value of Object.keys(data)) {
     if (value != "name") {
       await link.update(
@@ -88,10 +87,7 @@ router.get("/delete/:id", async (req, res, next) => {
 
 router.get("/form", async (req, res, next) => {
   const user_id = req.session.userId;
-  const forms = await criteria.findAll({
-    where: { user_id },
-    order: [["id", "ASC"]],
-  });
+  const forms = await criteria.getAll(user_id);
   return res.render("lokasi/form", {
     layout: "layouts/blank",
     forms,
@@ -103,10 +99,7 @@ router.get("/form", async (req, res, next) => {
 router.get("/form/:id", async (req, res, next) => {
   const id = req.params.id;
   const user_id = req.session.userId;
-  const criterias = await criteria.findAll({
-    where: { user_id },
-    order: [["id", "ASC"]],
-  });
+  const criterias = await criteria.getAll(user_id);
   const tempForms = await link.getAll({ location_id: id, user_id });
   let location = tempForms[0]["location"]["name"];
   const forms = criterias.map((criteria) => {

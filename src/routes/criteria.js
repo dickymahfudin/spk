@@ -12,19 +12,14 @@ router.get("/", async (req, res, next) => {
 
 router.get("/table", async (req, res, next) => {
   const user_id = req.session.userId;
-  const criterias = await criteria.findAll({
-    where: { user_id },
-    order: [["id", "ASC"]],
-    attributes: { exclude: ["createdAt", "updatedAt"] },
-  });
-  // return res.json(criterias);
+  const criterias = await criteria.getAll(user_id);
   return res.json(jsonToTable(criterias, "dataValues"));
 });
 
 router.post("/", async (req, res, next) => {
   const { name, bobot } = req.body;
   const user_id = req.session.userId;
-  const tempName = await criteria.findOne({ where: { name } });
+  const tempName = await criteria.findOne({ where: { name, user_id } });
 
   if (tempName) {
     req.flash("error", "Nama Criteria Tidak Boleh Sama");
