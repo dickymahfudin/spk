@@ -65,7 +65,7 @@ router.post("/:id", async (req, res, next) => {
         },
         {
           where: {
-            user_id: 1,
+            user_id,
             criteria_id: value,
             location_id: location.id,
           },
