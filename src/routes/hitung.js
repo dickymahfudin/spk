@@ -3,13 +3,16 @@ const router = express.Router();
 const hitung = require("../helpers/hitung");
 const group = require("../helpers/group");
 const dataFormat = require("../helpers/dataFormat");
-const { criteria, link, list_location } = require("../models");
+const { criteria, link, list_location, user } = require("../models");
+const updateState = require("../helpers/updateState");
 
 router.get("/", async (req, res, next) => {
   const user_id = req.session.userId;
   const username = req.session.username;
   const locations = await link.getAll({ user_id });
+  const locationsNull = locations.filter((e) => e.value === 0).length;
   const criterias = await criteria.getAll(user_id);
+  const users = (await user.findByPk(user_id)).status;
   let tempData, datas, hitungs, hasils;
   if (locations.length > 1) {
     hasils = locations[0].location.hasil;
@@ -24,6 +27,8 @@ router.get("/", async (req, res, next) => {
     hasils,
     location: locations.length,
     criteria: criterias.length,
+    users,
+    locationsNull,
   });
 });
 
@@ -43,6 +48,7 @@ router.get("/hitung", async (req, res, next) => {
           await list_location.update(el, { where: { id: el.id } });
         }
       }
+      await updateState(user_id, true);
       req.flash("success", "Perhitungan Berhasil");
       return res.redirect("/hitung");
     }

@@ -48,7 +48,9 @@
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%=rangking%></div>
+                                <% if(users) { %>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%=rangking%></div>
+                                <% } %>
                             </div>
                         </div>
                     </div>
@@ -61,7 +63,7 @@
     </div>
 </div>
 
-<% if(location != 0) { %>
+<% if(location != 0 && users) { %>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h4>Data Lokasi</h4>
@@ -70,4 +72,6 @@
         <table class="table table-bordered" id="dataTable" url="/dashboard/table" width="100%" cellspacing="0"></table>
     </div>
 </div>
+<% } else {%>
+    <h1>Harap Melakukkan Perhitungan</h1>
 <% } %>

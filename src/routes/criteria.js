@@ -3,6 +3,7 @@ const router = express.Router();
 const jsonToTable = require("../helpers/jsonToTable");
 const group = require("../helpers/group");
 const dataFormat = require("../helpers/dataFormat");
+const updateState = require("../helpers/updateState");
 const { criteria, link } = require("../models");
 
 router.get("/", async (req, res, next) => {
@@ -42,6 +43,7 @@ router.post("/", async (req, res, next) => {
       }
     }
   }
+  await updateState(user_id, false);
   req.flash("success", "Data Berhasil Ditambahkan");
   return res.redirect("/criteria");
 });
@@ -59,6 +61,7 @@ router.get("/delete/:id", async (req, res, next) => {
   const id = req.params.id;
   const tempCriteria = await criteria.findByPk(id);
   await tempCriteria.destroy();
+  await updateState(user_id, false);
   req.flash("success", "Data Berhasil Dihapus");
   return res.redirect("/criteria");
 });

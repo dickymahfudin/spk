@@ -4,6 +4,7 @@ const group = require("../helpers/group");
 const jsonToTable = require("../helpers/jsonToTable");
 const dataFormat = require("../helpers/dataFormat");
 const { list_location, criteria, link } = require("../models");
+const updateState = require("../helpers/updateState");
 
 router.get("/", async (req, res, next) => {
   const username = req.session.username;
@@ -44,16 +45,21 @@ router.post("/", async (req, res, next) => {
       });
     }
   }
+  await updateState(user_id, false);
   req.flash("success", "Data Berhasil Ditambahkan");
   return res.redirect("/lokasi");
 });
 
 router.post("/:id", async (req, res, next) => {
+  const { id } = req.params;
   const data = req.body;
   const user_id = req.session.userId;
   const location = await list_location.findOne({
-    where: { name: data.name, user_id },
+    where: { id, user_id },
   });
+  if (location) {
+    location.update({ name: data.name });
+  }
   for (const value of Object.keys(data)) {
     if (value != "name") {
       await link.update(
@@ -73,6 +79,7 @@ router.post("/:id", async (req, res, next) => {
       );
     }
   }
+  await updateState(user_id, false);
   req.flash("success", "Data Berhasil Diubah");
   return res.redirect("/lokasi");
 });
