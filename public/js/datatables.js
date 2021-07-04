@@ -14,7 +14,8 @@ $(document).ready(function () {
           searchable: false,
           sortable: false,
           render: function (id, type, full, meta) {
-            return `<span><a href="/${parsUrl}/form/${id}" class="modal-open" title="Edit ${full.name}" id="${id}"><i class="fas fa-edit"></i></a> |
+            const name = full.name || full.location;
+            return `<span><a href="/${parsUrl}/form/${id}" class="modal-open" title="Edit ${name}" id="${id}"><i class="fas fa-edit"></i></a> |
               <a href="/${parsUrl}/delete/${id}"  onclick="return confirm('Anda yakin ingin menghapus item ini?');" title="Delete ${full.name}" id="${id}"><i class="fas fa-trash text-danger"></i></a></span>
               `;
           },
