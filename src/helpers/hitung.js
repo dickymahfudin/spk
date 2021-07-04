@@ -61,7 +61,7 @@ const hitung = ({ datas, criterias, db = false }) => {
     const secondary = +(
       sum(val.slice(subLength, valLength)) / sliceLength
     ).toFixed(3);
-    const hasil = +((60 * core) / 100 + (40 * secondary) / 100).toFixed(4);
+    const hasil = +((60 * core) / 100 + (40 * secondary) / 100).toFixed(3);
     return {
       id: location.id,
       core,
