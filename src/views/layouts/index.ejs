@@ -34,7 +34,6 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">Universitas Pakuan</div>
             </a>
-
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
@@ -54,7 +53,13 @@
             <li class="nav-item  <%= title === 'Lokasi' && 'active' %>"">
                 <a class="nav-link" href="/lokasi">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>Lokasi</span></a>
+                    <span>Location</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item  <%= title === 'Nilai' && 'active' %>"">
+                <a class="nav-link" href="/nilai">
+                    <i class="fas fa-sort-numeric-up"></i>
+                    <span>Nilai</span></a>
             </li>
             <hr class="sidebar-divider my-0">
             <li class="nav-item  <%= title === 'Hitung' && 'active' %>"">

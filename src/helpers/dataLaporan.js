@@ -101,20 +101,183 @@ const criterias = async (user_id) => {
       updatedAt,
     },
   ];
-  const valueLink = [
-    [0.8, 0.2, 1, 1],
-    [1, 0.6, 1, 1],
-    [1, 0.6, 1, 1],
-    [1, 0.8, 1, 0.25],
-    [0.6, 1, 0.25, 1],
-    [0.4, 1, 0.5, 0.25],
-    [1, 0.2, 1, 1],
-    [1, 0.2, 1, 1],
-    [0.8, 0.2, 1, 1],
-    [1, 0.2, 1, 1],
+  const valueNilai = [
+    [
+      [
+        { name: "Transportasi", value: 0.2 },
+        { name: "Infrastruktur", value: 0.2 },
+        { name: "Industri dan Pelayanan Pendukung", value: 0.2 },
+        { name: "Kedekatan Dengan Pemasok", value: 0.2 },
+      ],
+      [{ name: "Harga Tanah", value: 0.2 }],
+      [{ name: "SDM", value: 1 }],
+      [
+        { name: "Konstur Tanah", value: 0.5 },
+        { name: "Kelembapan", value: 0.3 },
+        { name: "Cuaca", value: 0.2 },
+      ],
+    ],
+
+    [
+      [
+        { name: "Transportasi", value: 0.2 },
+        { name: "Infrastruktur", value: 0.4 },
+        { name: "Industri dan Pelayanan Pendukung", value: 0.2 },
+        { name: "Kedekatan Dengan Pemasok", value: 0.2 },
+      ],
+      [{ name: "Harga Tanah", value: 0.6 }],
+      [{ name: "SDM", value: 1 }],
+      [
+        { name: "Konstur Tanah ", value: 0.5 },
+        { name: "Kelembapan", value: 0.2 },
+        { name: "Cuaca", value: 0.3 },
+      ],
+    ],
+
+    [
+      [
+        { name: "Transportasi", value: 0.3 },
+        { name: "Infrastruktur", value: 0.2 },
+        { name: "Industri dan Pelayanan Pendukung", value: 0.2 },
+        { name: "Kedekatan Dengan Pemasok", value: 0.3 },
+      ],
+      [{ name: "Harga Tanah", value: 0.6 }],
+      [{ name: "SDM", value: 1 }],
+      [
+        { name: "Konstur Tanah ", value: 0.3 },
+        { name: "Kelembapan", value: 0.3 },
+        { name: "Cuaca", value: 0.4 },
+      ],
+    ],
+
+    [
+      [
+        { name: "Transportasi", value: 0.5 },
+        { name: "Infrastruktur", value: 0.1 },
+        { name: "Industri dan Pelayanan Pendukung", value: 0.1 },
+        { name: "Kedekatan Dengan Pemasok", value: 0.3 },
+      ],
+      [{ name: "Harga Tanah", value: 0.8 }],
+      [{ name: "SDM", value: 1 }],
+      [
+        { name: "Konstur Tanah ", value: 0.1 },
+        { name: "Kelembapan", value: 0.1 },
+        { name: "Cuaca", value: 0.05 },
+      ],
+    ],
+
+    [
+      [
+        { name: "Transportasi", value: 0.1 },
+        { name: "Infrastruktur", value: 0.1 },
+        { name: "Industri dan Pelayanan Pendukung", value: 0.3 },
+        { name: "Kedekatan Dengan Pemasok", value: 0.1 },
+      ],
+      [{ name: "Harga Tanah", value: 1 }],
+      [{ name: "SDM", value: 0.25 }],
+      [
+        { name: "Konstur Tanah ", value: 0.25 },
+        { name: "Kelembapan", value: 0.25 },
+        { name: "Cuaca", value: 0.5 },
+      ],
+    ],
+
+    [
+      [
+        { name: "Transportasi", value: 0.1 },
+        { name: "Infrastruktur", value: 0.1 },
+        { name: "Industri dan Pelayanan Pendukung", value: 0.1 },
+        { name: "Kedekatan Dengan Pemasok", value: 0.1 },
+      ],
+      [{ name: "Harga Tanah", value: 1 }],
+      [{ name: "SDM", value: 0.5 }],
+      [
+        { name: "Konstur Tanah ", value: 0.05 },
+        { name: "Kelembapan", value: 0.1 },
+        { name: "Cuaca", value: 0.1 },
+      ],
+    ],
+
+    [
+      [
+        { name: "Transportasi", value: 0.25 },
+        { name: "Infrastruktur", value: 0.25 },
+        { name: "Industri dan Pelayanan Pendukung", value: 0.25 },
+        { name: "Kedekatan Dengan Pemasok", value: 0.25 },
+      ],
+      [{ name: "Harga Tanah", value: 0.2 }],
+      [{ name: "SDM", value: 1 }],
+      [
+        { name: "Konstur Tanah ", value: 0.25 },
+        { name: "Kelembapan", value: 0.5 },
+        { name: "Cuaca", value: 0.25 },
+      ],
+    ],
+
+    [
+      [
+        { name: "Transportasi", value: 0.25 },
+        { name: "Infrastruktur", value: 0.25 },
+        { name: "Industri dan Pelayanan Pendukung", value: 0.25 },
+        { name: "Kedekatan Dengan Pemasok", value: 0.25 },
+      ],
+      [{ name: "Harga Tanah", value: 0.2 }],
+      [{ name: "SDM", value: 1 }],
+      [
+        { name: "Konstur Tanah ", value: 0.25 },
+        { name: "Kelembapan", value: 0.5 },
+        { name: "Cuaca", value: 0.25 },
+      ],
+    ],
+
+    [
+      [
+        { name: "Transportasi", value: 0.2 },
+        { name: "Infrastruktur", value: 0.2 },
+        { name: "Industri dan Pelayanan Pendukung", value: 0.2 },
+        { name: "Kedekatan Dengan Pemasok", value: 0.2 },
+      ],
+      [{ name: "Harga Tanah", value: 0.2 }],
+      [{ name: "SDM", value: 1 }],
+      [
+        { name: "Konstur Tanah ", value: 0.25 },
+        { name: "Kelembapan", value: 0.5 },
+        { name: "Cuaca", value: 0.25 },
+      ],
+    ],
+
+    [
+      [
+        { name: "Transportasi", value: 0.25 },
+        { name: "Infrastruktur", value: 0.25 },
+        { name: "Industri dan Pelayanan Pendukung", value: 0.25 },
+        { name: "Kedekatan Dengan Pemasok", value: 0.25 },
+      ],
+      [{ name: "Harga Tanah", value: 0.2 }],
+      [{ name: "SDM", value: 1 }],
+      [
+        { name: "Konstur Tanah ", value: 0.25 },
+        { name: "Kelembapan", value: 0.5 },
+        { name: "Cuaca", value: 0.25 },
+      ],
+    ],
   ];
   const criterias = await models.criteria.bulkCreate(dataCriteria);
   const locations = await models.list_location.bulkCreate(dataLocation);
+  const createNilai = async (datas, location, criteria) => {
+    for (const i in datas) {
+      if (Object.hasOwnProperty.call(datas, i)) {
+        const data = datas[i];
+        await models.nilai.create({
+          user_id,
+          location_id: location,
+          criteria_id: criteria,
+          name: data.name,
+          value: data.value,
+        });
+      }
+    }
+  };
 
   for (const i in locations) {
     if (Object.hasOwnProperty.call(locations, i)) {
@@ -122,12 +285,8 @@ const criterias = async (user_id) => {
       for (const j in criterias) {
         if (Object.hasOwnProperty.call(criterias, j)) {
           const criteria = criterias[j];
-          await models.link.create({
-            user_id,
-            location_id: location.id,
-            criteria_id: criteria.id,
-            value: valueLink[i][j],
-          });
+          const nilai = valueNilai[i][j];
+          createNilai(nilai, location.id, criteria.id);
         }
       }
     }

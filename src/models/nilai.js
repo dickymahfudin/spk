@@ -1,17 +1,13 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class link extends Model {
+  class nilai extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.user, {
-        foreignKey: "user_id",
-        as: "user",
-      });
       this.belongsTo(models.criteria, {
         foreignKey: "criteria_id",
         as: "criteria",
@@ -21,46 +17,42 @@ module.exports = (sequelize, DataTypes) => {
         as: "location",
       });
     }
-
-    static async getAll(where = []) {
-      const exclude = ["password", "createdAt", "updatedAt"];
+    static async getAll(user_id) {
       return await this.findAll({
-        where,
+        where: { user_id },
         include: [
-          { model: sequelize.models.user, as: "user", attributes: { exclude } },
           {
             model: sequelize.models.criteria,
             as: "criteria",
-            attributes: { exclude },
           },
           {
             model: sequelize.models.list_location,
             as: "location",
-            attributes: { exclude },
           },
         ],
-        attributes: { exclude },
-        order: [["id", "ASC"]],
-        // group: ["location_id"],
+        order: [
+          ["location_id", "ASC"],
+          ["criteria_id", "ASC"],
+        ],
+        attributes: { exclude: ["createdAt", "updatedAt"] },
       })
         .then((result) => result)
-        .catch((err) => {
-          console.log(err);
-          return err;
-        });
+        .catch((err) => err);
     }
   }
-  link.init(
+
+  nilai.init(
     {
       user_id: DataTypes.INTEGER,
-      criteria_id: DataTypes.INTEGER,
       location_id: DataTypes.INTEGER,
+      criteria_id: DataTypes.INTEGER,
+      name: DataTypes.STRING,
       value: DataTypes.FLOAT,
     },
     {
       sequelize,
-      modelName: "link",
+      modelName: "nilai",
     }
   );
-  return link;
+  return nilai;
 };

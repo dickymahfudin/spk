@@ -1,4 +1,5 @@
 "use strict";
+const bcrypt = require("bcrypt");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("users", {
@@ -39,7 +40,7 @@ module.exports = {
     //   {
     //     name: "dism",
     //     username: "dism",
-    //     password: "123",
+    //     password: await bcrypt.hash("dism", 10),
     //     createdAt,
     //     updatedAt,
     //   },

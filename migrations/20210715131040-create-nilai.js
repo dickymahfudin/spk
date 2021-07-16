@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("links", {
+    await queryInterface.createTable("nilais", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -18,6 +18,16 @@ module.exports = {
         onUpdate: "cascade",
         onDelete: "cascade",
       },
+      location_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "list_locations",
+          key: "id",
+        },
+        onUpdate: "cascade",
+        onDelete: "cascade",
+      },
       criteria_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -28,15 +38,8 @@ module.exports = {
         onUpdate: "cascade",
         onDelete: "cascade",
       },
-      location_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "list_locations",
-          key: "id",
-        },
-        onUpdate: "cascade",
-        onDelete: "cascade",
+      name: {
+        type: Sequelize.STRING,
       },
       value: {
         type: Sequelize.FLOAT,
@@ -52,6 +55,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("links");
+    await queryInterface.dropTable("nilais");
   },
 };

@@ -1,19 +1,24 @@
+const group = require("./group");
 const dataFormat = (datas) => {
-  let result = [];
-  datas.forEach((data) => {
-    let tempData;
-    data.forEach((temp) => {
-      const name = temp.criteria.name;
-      tempData = {
-        ...tempData,
-        id: temp.location_id,
-        location: temp.location.name,
-        [name]: temp.value,
-      };
-    });
-    result.push(tempData);
+  return datas.map((e) => {
+    const data = group(e, "criteria_id");
+    const sum = data
+      .map((e) => {
+        const valSum = e
+          .map((el) => el.value)
+          .reduce((acc, val) => +(acc + val));
+        const result = {
+          id: e[0].location_id,
+          location: e[0].location.name,
+          [e[0].criteria.name]: +valSum.toFixed(3),
+        };
+        return result;
+      })
+      .reduce(function (acc, val) {
+        return Object.assign(acc, val);
+      }, {});
+    return sum;
   });
-  return result;
 };
 
 module.exports = dataFormat;

@@ -10,6 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+    static async getAll(user_id) {
+      return await this.findAll({
+        where: { user_id },
+        order: [["id", "ASC"]],
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+      })
+        .then((result) => result)
+        .catch((err) => err);
+    }
   }
   list_location.init(
     {
