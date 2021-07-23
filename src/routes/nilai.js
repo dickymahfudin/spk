@@ -8,8 +8,7 @@ const { nilai, criteria, list_location } = require("../models");
 
 router.get("/", async (req, res, next) => {
   const username = req.session.username;
-  //   const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const criterias = await criteria.getAll(user_id);
   const locations = await list_location.getAll(user_id);
   return res.render("nilai/index", {
@@ -21,8 +20,7 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/table", async (req, res, next) => {
-  //   const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const nilais = await nilai.getAll(user_id);
   const table = nilais.map((e) => {
     return {
@@ -38,8 +36,7 @@ router.get("/table", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   const { name, criteria_id, location_id, value } = req.body;
-  //   const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
 
   await nilai.create({ user_id, criteria_id, name, location_id, value });
   await updateState(user_id, false);
@@ -67,8 +64,7 @@ router.get("/delete/:id", async (req, res, next) => {
 });
 
 router.get("/form", async (req, res, next) => {
-  //   const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const criterias = await criteria.getAll(user_id);
   const locations = await list_location.getAll(user_id);
   const value = { name: "", criteria: "", lokasi: "" };

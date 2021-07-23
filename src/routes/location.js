@@ -8,15 +8,13 @@ const group = require("../helpers/group");
 
 router.get("/", async (req, res, next) => {
   const username = req.session.username;
-  // const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const criterias = await criteria.getAll(user_id);
   return res.render("lokasi/index", { title: "Lokasi", username, criterias });
 });
 
 router.get("/table", async (req, res, next) => {
-  // const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const nilais = await nilai.getAll(user_id);
   const groupLocation = group(nilais, "location_id");
   const datas = dataFormat(groupLocation);
@@ -24,8 +22,7 @@ router.get("/table", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  // const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const { name } = req.body;
   const tempLocation = await list_location.findOne({
     where: {
@@ -56,8 +53,7 @@ router.post("/", async (req, res, next) => {
 router.post("/:id", async (req, res, next) => {
   const { id } = req.params;
   const data = req.body;
-  // const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const location = await list_location.findOne({
     where: { id, user_id },
   });
@@ -97,7 +93,6 @@ router.get("/delete/:id", async (req, res, next) => {
 });
 
 router.get("/form", async (req, res, next) => {
-  // const user_id = req.session.userId;
   return res.render("lokasi/form", {
     layout: "layouts/blank",
     location: "",
@@ -107,8 +102,7 @@ router.get("/form", async (req, res, next) => {
 
 router.get("/form/:id", async (req, res, next) => {
   const id = req.params.id;
-  // const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const location = await list_location.findOne({ where: { id, user_id } });
   return res.render("lokasi/form", {
     layout: "layouts/blank",

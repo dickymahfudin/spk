@@ -12,16 +12,14 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/table", async (req, res, next) => {
-  // const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const criterias = await criteria.getAll(user_id);
   return res.json(jsonToTable(criterias, "dataValues"));
 });
 
 router.post("/", async (req, res, next) => {
   const { name, bobot } = req.body;
-  // const user_id = req.session.userId;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const tempName = await criteria.findOne({ where: { name, user_id } });
 
   if (tempName) {
