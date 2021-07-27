@@ -87,8 +87,10 @@ router.post("/:id", async (req, res, next) => {
 router.get("/delete/:id", async (req, res, next) => {
   const id = req.params.id;
   const tempLocation = await list_location.findByPk(id);
+  const user_id = req.session.userId;
   await tempLocation.destroy();
   req.flash("success", "Data Berhasil Dihapus");
+  await updateState(user_id, false);
   return res.redirect("/lokasi");
 });
 

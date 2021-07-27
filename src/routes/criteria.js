@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const jsonToTable = require("../helpers/jsonToTable");
-const group = require("../helpers/group");
-const dataFormat = require("../helpers/dataFormat");
 const updateState = require("../helpers/updateState");
 const { criteria, nilai, list_location } = require("../models");
+const { Op } = require("sequelize");
 
 router.get("/", async (req, res, next) => {
   const username = req.session.username;
@@ -24,6 +23,14 @@ router.post("/", async (req, res, next) => {
 
   if (tempName) {
     req.flash("error", "Nama Criteria Tidak Boleh Sama");
+    return res.redirect("/criteria");
+  }
+  let tempCriteria = (await criteria.getAll(user_id)).map((e) => e.bobot);
+  if (tempCriteria.length !== 0) {
+    tempCriteria = tempCriteria.reduce((acc, val) => +(acc + val).toFixed(5));
+  }
+  if (parseFloat(tempCriteria) + parseFloat(bobot) > 1) {
+    req.flash("error", `Jumlah Nilai Bobot Tidak Boleh Lebih Dari 1`);
     return res.redirect("/criteria");
   }
   const create = await criteria.create({ user_id, name, bobot });
@@ -47,6 +54,25 @@ router.post("/", async (req, res, next) => {
 router.post("/:id", async (req, res, next) => {
   const { name, bobot } = req.body;
   const id = req.params.id;
+  const user_id = req.session.userId;
+  let tempCriteria = (
+    await criteria.findAll({
+      where: {
+        id: {
+          [Op.ne]: id,
+        },
+        user_id,
+      },
+    })
+  ).map((e) => e.bobot);
+
+  if (tempCriteria.length !== 0) {
+    tempCriteria = tempCriteria.reduce((acc, val) => +(acc + val).toFixed(5));
+  }
+  if (parseFloat(tempCriteria) + parseFloat(bobot) > 1) {
+    req.flash("error", "Jumlah Nilai Bobot Tidak Boleh Lebih Dari 1");
+    return res.redirect("/criteria");
+  }
   const tempName = await criteria.findByPk(id);
   await tempName.update({ name, bobot });
   req.flash("success", "Data Berhasil Diubah");
@@ -55,6 +81,7 @@ router.post("/:id", async (req, res, next) => {
 
 router.get("/delete/:id", async (req, res, next) => {
   const id = req.params.id;
+  const user_id = req.session.userId;
   const tempCriteria = await criteria.findByPk(id);
   await tempCriteria.destroy();
   await updateState(user_id, false);

@@ -47,15 +47,17 @@ router.post("/", async (req, res, next) => {
 router.post("/:id", async (req, res, next) => {
   const { name, criteria_id, location_id, value } = req.body;
   const id = req.params.id;
+  const user_id = req.session.userId;
   const tempName = await nilai.findByPk(id);
   await tempName.update({ criteria_id, name, location_id, value });
+  await updateState(user_id, false);
   req.flash("success", "Data Berhasil Diubah");
   return res.redirect("/nilai");
 });
 
 router.get("/delete/:id", async (req, res, next) => {
   const id = req.params.id;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const tempCriteria = await nilai.findByPk(id);
   await tempCriteria.destroy();
   await updateState(user_id, false);
