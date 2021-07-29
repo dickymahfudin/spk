@@ -9,7 +9,7 @@ router.get("/", async (req, res, next) => {
   const locations = await list_location.findAll({
     where: { user_id },
     order: [
-      ["hasil", "ASC"],
+      ["hasil", "DESC"],
       ["name", "ASC"],
     ],
   });
@@ -32,7 +32,7 @@ router.get("/table", async (req, res, next) => {
   const locations = await list_location.findAll({
     where: { user_id },
     order: [
-      ["hasil", "ASC"],
+      ["hasil", "DESC"],
       ["name", "ASC"],
     ],
     attributes: { exclude: ["createdAt", "updatedAt"] },
