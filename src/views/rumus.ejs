@@ -7,7 +7,7 @@ Jumlah Criteria Kurang Dari 1
             Untuk Mengaktifkan Tombol Hitung Harap Isi Data Terlebih Dahulu (Minimal 2), Atau Periksa Nilai Yang Masih 0 Pada Halaman Lokasi
         <% } %>
 
-<% if( users) { %>
+<% if( users  && totalCriterias == 1) { %>
 <div>
     $$x=\begin{bmatrix}<%=hitungs.matrix1%>\end{bmatrix}$$
     <p>- Normalisasi matriks perbandingan kriteria asli \[r_{ij} = {x_{ij} \over \sqrt{\sum_{i=1}^n x_{ij^2}}}\]</p>
