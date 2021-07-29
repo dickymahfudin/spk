@@ -80,7 +80,7 @@ router.get("/form", async (req, res, next) => {
 });
 router.get("/form/:id", async (req, res, next) => {
   const id = req.params.id;
-  const user_id = 1;
+  const user_id = req.session.userId;
   const value = await nilai.findByPk(id);
   const locations = await list_location.getAll(user_id);
   const criterias = await criteria.getAll(user_id);
