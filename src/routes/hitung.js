@@ -12,7 +12,12 @@ router.get("/", async (req, res, next) => {
   const criterias = await criteria.getAll(user_id);
   const users = (await user.findByPk(user_id)).status;
   const nilais = await nilai.getAll(user_id);
-
+  const totalCriterias =
+    criterias.length !== 0
+      ? criterias
+          .map((e) => e.bobot)
+          .reduce((acc, val) => +(acc + val).toFixed(5))
+      : 0;
   let hitungs, hasils;
   if (nilais.length > 1 && criterias.length > 1) {
     const nilais = await nilai.getAll(user_id);
@@ -27,6 +32,7 @@ router.get("/", async (req, res, next) => {
     location: nilais.length,
     criteria: criterias.length,
     users,
+    totalCriterias,
   });
 });
 

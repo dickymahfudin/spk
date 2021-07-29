@@ -1,8 +1,10 @@
-<% if(location> 1 && criteria > 1) { %>
+<% if(location> 1 && criteria > 1 && totalCriterias == 1) { %>
     <a href="/hitung/hitung" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-calculator fa-sm text-white-50"></i> Hitung</a>
-    <% } else { %>
-        Untuk Mengaktifkan Tombol Hitung Harap Isi Data Terlebih Dahulu (Minimal 2), Atau Periksa Nilai Yang Masih 0 Pada Halaman Lokasi
+    <% } else if(totalCriterias < 1) {  %>
+Jumlah Criteria Kurang Dari 1
+        <% } else { %>
+            Untuk Mengaktifkan Tombol Hitung Harap Isi Data Terlebih Dahulu (Minimal 2), Atau Periksa Nilai Yang Masih 0 Pada Halaman Lokasi
         <% } %>
 
 <% if( users) { %>
