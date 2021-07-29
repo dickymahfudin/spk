@@ -75,6 +75,7 @@ router.post("/:id", async (req, res, next) => {
   }
   const tempName = await criteria.findByPk(id);
   await tempName.update({ name, bobot });
+  await updateState(user_id, false);
   req.flash("success", "Data Berhasil Diubah");
   return res.redirect("/criteria");
 });
